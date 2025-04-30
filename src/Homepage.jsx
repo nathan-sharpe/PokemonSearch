@@ -74,6 +74,10 @@ function Homepage() {
             <ul>
                 <li>Ability 1: {pokemonAbility1}</li>
                 <li>Ability 2: {pokemonAbility2}</li>
+            </ul><br />
+            <h2>Learnset:</h2>
+            <ul>
+                <li>Move: Learned at level: </li>
             </ul>
         </>
     )
