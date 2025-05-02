@@ -13,45 +13,61 @@ function Homepage() {
     const [pokemonAbilities, setPokemonAbilities] = useState([])
     const [pokemonTypes, setPokemonTypes] = useState([])
     const [pokemonMoves, setPokemonMoves] = useState([])
+    const [pokedexNumber, setPokedexNumber] = useState()
+    const [isApiCallSuccessful, setIsApiCallSuccessful] = useState(null)
+    const [apiCalled, setApiCalled] = useState(false)
 
     function updatePokemonName(event) {
         setPokemonName(event.target.value)
     }
 
     async function searchForPokemon() {
-        const dataSource = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-        const response = await fetch(dataSource)
-        const data = await response.json()
-        const sprite = data.sprites.front_default
-        setPokemonSprite(sprite)
-        const hp = data.stats[0].base_stat
-        setPokemonHP(hp)
-        const attack = data.stats[1].base_stat
-        setPokemonAttack(attack)
-        const defense = data.stats[2].base_stat
-        setPokemonDefense(defense)
-        const specialAttack = data.stats[3].base_stat
-        setPokemonSpecialAttack(specialAttack)
-        const specialDefense = data.stats[4].base_stat
-        setPokemonSpecialDefense(specialDefense)
-        const speed = data.stats[5].base_stat
-        setPokemonSpeed(speed)
-        const abilities = data.abilities
-        setPokemonAbilities(abilities)
-        const types = data.types
-        setPokemonTypes(types)
-        const moves = data.moves
-        setPokemonMoves(moves)
-        console.log(data)
+        try {
+            setApiCalled(true)
+            const dataSource = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+            const response = await fetch(dataSource)
+            setIsApiCallSuccessful(true)
+            const data = await response.json()
+            const sprite = data.sprites.front_default
+            setPokemonSprite(sprite)
+            const dexNum = data.id
+            setPokedexNumber(dexNum)
+            const hp = data.stats[0].base_stat
+            setPokemonHP(hp)
+            const attack = data.stats[1].base_stat
+            setPokemonAttack(attack)
+            const defense = data.stats[2].base_stat
+            setPokemonDefense(defense)
+            const specialAttack = data.stats[3].base_stat
+            setPokemonSpecialAttack(specialAttack)
+            const specialDefense = data.stats[4].base_stat
+            setPokemonSpecialDefense(specialDefense)
+            const speed = data.stats[5].base_stat
+            setPokemonSpeed(speed)
+            const abilities = data.abilities
+            setPokemonAbilities(abilities)
+            const types = data.types
+            setPokemonTypes(types)
+            const moves = data.moves
+            setPokemonMoves(moves)
+            console.log(data)
+        }
+        catch(error) {
+            setIsApiCallSuccessful(false)
+            console.error(error)
+        }
     }
 
-    return (
-        <>
+    if (isApiCallSuccessful == true && apiCalled == true) {
+        return (
+            <div>
             <h1>Pokemon Search</h1>
             <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName}/>
             <button onClick={searchForPokemon}>Search</button><br />
             <p>*For Pokemon with multi-word names use a hypen between each word*</p>
+            <h2>Pokemon Found!</h2>
             <img src={pokemonSprite}  alt="Pokemon Sprite"/><br />
+            <h2>Pokedex Number: {pokedexNumber}</h2><br/>
             <h2>Types: </h2>
             <ul>
                     {
@@ -100,8 +116,30 @@ function Homepage() {
                     })
                 }
             </ol>
-        </>
-    )
+            </div>
+        )
+    }
+    else if (isApiCallSuccessful == false && apiCalled == true) {
+        return (
+            <>
+                <h1>Pokemon Search</h1>
+                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName}/>
+                <button onClick={searchForPokemon}>Search</button><br />
+                <p>*For Pokemon with multi-word names use a hypen between each word*</p>
+                <h2>Pokemon not found, please double check spelling.</h2>
+            </>
+        )
+    }
+    else {
+        return (
+            <>
+                <h1>Pokemon Search</h1>
+                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName}/>
+                <button onClick={searchForPokemon}>Search</button><br />
+                <p>*For Pokemon with multi-word names use a hypen between each word*</p>
+            </>
+        )
+    }
 }
 
 export default Homepage
