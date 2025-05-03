@@ -22,24 +22,33 @@
   font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
 }
 
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
 .searchBar {
   margin-top: 2vw;
   margin-left: 2vw;
   width: 35vw;
-  height: 5vw;
+  height: 25px;
   border-radius: 5px;
 }
 
 .searchButton {
   color: yellow;
   background-color: darkgrey;
-  padding: 4px;
+  padding: auto;
   border-radius: 5px;
   font-size: 1rem;
   width: 15%;
-  height: 5%;
+  height: 28.5px;
   font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
   font-weight: bold;
+  border-style: none;
+  cursor: pointer;
 }
 
 .searchTip {

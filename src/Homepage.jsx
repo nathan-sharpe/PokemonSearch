@@ -50,8 +50,10 @@ function Homepage() {
             const types = data.types
             setPokemonTypes(types)
             const moves = data.moves
+            moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
             setPokemonMoves(moves)
             console.log(data)
+            console.log(abilities)
         }
         catch(error) {
             setIsApiCallSuccessful(false)
@@ -67,9 +69,11 @@ function Homepage() {
                     <p className='headerSearch'>Search</p>
                 </div>
             <hr />
-            <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
-            <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
-            <p className='searchTip'>*For Pokemon with multi-word names use a hypen between each word*</p>
+            <div className='searchContainer'>
+                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
+                <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
+            </div>
+            <p className='searchTip'>*For Pokemon with multi-word names and alternate forms please use a hyphen between each word. Eg. landorus-incarnate and great-tusk*</p>
             <div className='resultsContainer'>
                 <h2>Pokemon Found!</h2>
                 <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
@@ -104,6 +108,7 @@ function Homepage() {
                             return (
                                 <li key= {ability.ability['name']}>
                                     {ability.ability['name']}
+                                    {ability['is_hidden'] ? " (Hidden ability)" : null}
                                 </li>
                             )
                         })
@@ -134,9 +139,11 @@ function Homepage() {
                     <p className='headerSearch'>Search</p>
                 </div>
                 <hr />
-                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
-                <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
-                <p className='searchTip'>*For Pokemon with multi-word names use a hypen between each word*</p>
+                <div className='searchContainer'>
+                    <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
+                    <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
+                </div>
+                <p className='searchTip'>*For Pokemon with multi-word names and alternate forms please use a hyphen between each word. Eg. landorus-incarnate and great-tusk*</p>
                 <h2 className='notFound'>Pokemon not found, please double check spelling.</h2>
             </>
         )
@@ -149,9 +156,11 @@ function Homepage() {
                     <p className='headerSearch'>Search</p>
                 </div>
                 <hr />
-                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
-                <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
-                <p className='searchTip'>*For Pokemon with multi-word names use a hypen between each word*</p>
+                <div className='searchContainer'>
+                    <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
+                    <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
+                </div>
+                <p className='searchTip'>*For Pokemon with multi-word names and alternate forms please use a hyphen between each word. Eg. landorus-incarnate and great-tusk*</p>
             </>
         )
     }
