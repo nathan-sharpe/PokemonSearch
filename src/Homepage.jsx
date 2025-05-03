@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import logo from "./assets/PokemonLogo.png"
 
 function Homepage() {
 
@@ -61,82 +62,96 @@ function Homepage() {
     if (isApiCallSuccessful == true && apiCalled == true) {
         return (
             <div>
-            <h1>Pokemon Search</h1>
-            <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName}/>
-            <button onClick={searchForPokemon}>Search</button><br />
-            <p>*For Pokemon with multi-word names use a hypen between each word*</p>
-            <h2>Pokemon Found!</h2>
-            <img src={pokemonSprite}  alt="Pokemon Sprite"/><br />
-            <h2>Pokedex Number: {pokedexNumber}</h2><br/>
-            <h2>Types: </h2>
-            <ul>
-                    {
-                        pokemonTypes.map((type) => {
+            <div className='headerContainer'>
+                    <img src={logo} className='headerImg' />
+                    <p className='headerSearch'>Search</p>
+                </div>
+            <hr />
+            <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
+            <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
+            <p className='searchTip'>*For Pokemon with multi-word names use a hypen between each word*</p>
+            <div className='resultsContainer'>
+                <h2>Pokemon Found!</h2>
+                <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
+                <h2>Pokedex Number: {pokedexNumber}</h2><br/>
+                <h2>Types: </h2>
+                <ul>
+                        {
+                            pokemonTypes.map((type) => {
+                                return (
+                                    <li key= {type.type['name']}>
+                                        {type.type['name']}
+                                    </li>
+                                )
+                            })
+                        }
+                </ul>
+                <br />
+                <h2>Stat Distribution:</h2>
+                <ul>
+                    <li>HP: {pokemonHP}</li>
+                    <li>Attack: {pokemonAttack}</li>
+                    <li>Defense: {pokemonDefense}</li>
+                    <li>Special Attack: {pokemonSpecialAttack}</li>
+                    <li>Special Defense: {pokemonSpecialDefense}</li>
+                    <li>Speed: {pokemonSpeed}</li>
+                </ul>
+                <br />
+                <h2>Abilities:</h2>
+                <ol>
+                {
+                        pokemonAbilities.map((ability) => {
                             return (
-                                <li key= {type.type['name']}>
-                                    {type.type['name']}
+                                <li key= {ability.ability['name']}>
+                                    {ability.ability['name']}
                                 </li>
                             )
                         })
                     }
-            </ul>
-            <br />
-            <h2>Stat Distribution:</h2>
-            <ul>
-                <li>HP: {pokemonHP}</li>
-                <li>Attack: {pokemonAttack}</li>
-                <li>Defense: {pokemonDefense}</li>
-                <li>Special Attack: {pokemonSpecialAttack}</li>
-                <li>Special Defense: {pokemonSpecialDefense}</li>
-                <li>Speed: {pokemonSpeed}</li>
-            </ul>
-            <br />
-            <h2>Abilities:</h2>
-            <ol>
-            {
-                    pokemonAbilities.map((ability) => {
-                        return (
-                            <li key= {ability.ability['name']}>
-                                {ability.ability['name']}
-                            </li>
-                        )
-                    })
-                }
-            </ol><br />
-            <h2>Learnset:</h2>
-            <ol>
-                {
-                    pokemonMoves.map((move) => {
-                        return (
-                            <li key= {move.move['name']}>
-                                Move: {move.move['name']},
-                                Learned at Level: {move.version_group_details[0].level_learned_at}
-                            </li>
-                        )
-                    })
-                }
-            </ol>
+                </ol><br />
+                <h2>Learnset:</h2>
+                <ol>
+                    {
+                        pokemonMoves.map((move) => {
+                            return (
+                                <li key= {move.move['name']}>
+                                    Move: {move.move['name']},
+                                    Learned at Level: {move.version_group_details[0].level_learned_at}
+                                </li>
+                            )
+                        })
+                    }
+                </ol>
+                </div>
             </div>
         )
     }
     else if (isApiCallSuccessful == false && apiCalled == true) {
         return (
             <>
-                <h1>Pokemon Search</h1>
-                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName}/>
-                <button onClick={searchForPokemon}>Search</button><br />
-                <p>*For Pokemon with multi-word names use a hypen between each word*</p>
-                <h2>Pokemon not found, please double check spelling.</h2>
+                <div className='headerContainer'>
+                    <img src={logo} className='headerImg' />
+                    <p className='headerSearch'>Search</p>
+                </div>
+                <hr />
+                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
+                <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
+                <p className='searchTip'>*For Pokemon with multi-word names use a hypen between each word*</p>
+                <h2 className='notFound'>Pokemon not found, please double check spelling.</h2>
             </>
         )
     }
     else {
         return (
             <>
-                <h1>Pokemon Search</h1>
-                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName}/>
-                <button onClick={searchForPokemon}>Search</button><br />
-                <p>*For Pokemon with multi-word names use a hypen between each word*</p>
+                <div className='headerContainer'>
+                    <img src={logo} className='headerImg' />
+                    <p className='headerSearch'>Search</p>
+                </div>
+                <hr />
+                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
+                <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
+                <p className='searchTip'>*For Pokemon with multi-word names use a hypen between each word*</p>
             </>
         )
     }

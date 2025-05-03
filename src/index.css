@@ -2,3 +2,70 @@
   margin: 0;
   padding: 0;
 }
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.headerImg {
+  width: 15vw;
+  height: auto;
+  padding-right: 2vw;
+  margin-left: 2vw;
+}
+
+.headerSearch {
+  align-self: center;
+  font-size: 5vw;
+  font-weight: bold;
+  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+}
+
+.searchBar {
+  margin-top: 2vw;
+  margin-left: 2vw;
+  width: 35vw;
+  height: 5vw;
+  border-radius: 5px;
+}
+
+.searchButton {
+  color: yellow;
+  background-color: darkgrey;
+  padding: 4px;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 15%;
+  height: 5%;
+  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  font-weight: bold;
+}
+
+.searchTip {
+  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  font-weight: bold;
+  margin-left: 2vw;
+  font-size: 2vw;
+}
+
+.resultsContainer {
+  margin-left: 2vw;
+  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+}
+
+.resultsContainer li {
+  margin-left: 5vw;
+}
+
+.spriteImg {
+  width: 40vw;
+  height: auto;
+}
+
+.notFound {
+  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  margin-left: 2vw;
+  font-size: 4vw;
+  padding-top: 1vw;
+}
