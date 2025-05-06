@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import logo from "./assets/PokemonLogo.png"
+import { useState } from 'react'
+import Header from './Header.jsx'
 
 function Homepage() {
 
@@ -64,16 +64,11 @@ function Homepage() {
     if (isApiCallSuccessful == true && apiCalled == true) {
         return (
             <div>
-            <div className='headerContainer'>
-                    <img src={logo} className='headerImg' />
-                    <p className='headerSearch'>Search</p>
-                </div>
-            <hr />
-            <div className='searchContainer'>
-                <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
-                <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
-            </div>
-            <p className='searchTip'>*For Pokemon with multi-word names and alternate forms please use a hyphen between each word. Eg. landorus-incarnate and great-tusk*</p>
+            <Header
+                pokemonName={pokemonName}
+                updatePokemonName={updatePokemonName}
+                searchForPokemon={searchForPokemon}
+            />
             <div className='resultsContainer'>
                 <h2>Pokemon Found!</h2>
                 <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
@@ -134,16 +129,11 @@ function Homepage() {
     else if (isApiCallSuccessful == false && apiCalled == true) {
         return (
             <>
-                <div className='headerContainer'>
-                    <img src={logo} className='headerImg' />
-                    <p className='headerSearch'>Search</p>
-                </div>
-                <hr />
-                <div className='searchContainer'>
-                    <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
-                    <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
-                </div>
-                <p className='searchTip'>*For Pokemon with multi-word names and alternate forms please use a hyphen between each word. Eg. landorus-incarnate and great-tusk*</p>
+                <Header
+                    pokemonName={pokemonName}
+                    updatePokemonName={updatePokemonName}
+                    searchForPokemon={searchForPokemon}
+                />
                 <h2 className='notFound'>Pokemon not found, please double check spelling.</h2>
             </>
         )
@@ -151,16 +141,11 @@ function Homepage() {
     else {
         return (
             <>
-                <div className='headerContainer'>
-                    <img src={logo} className='headerImg' />
-                    <p className='headerSearch'>Search</p>
-                </div>
-                <hr />
-                <div className='searchContainer'>
-                    <input type="text"  placeholder='Enter Pokemon name' onChange={updatePokemonName} value={pokemonName} className='searchBar'/>
-                    <button onClick={searchForPokemon} className='searchButton'>Search!</button><br />
-                </div>
-                <p className='searchTip'>*For Pokemon with multi-word names and alternate forms please use a hyphen between each word. Eg. landorus-incarnate and great-tusk*</p>
+                <Header
+                    pokemonName={pokemonName}
+                    updatePokemonName={updatePokemonName}
+                    searchForPokemon={searchForPokemon}
+                />
             </>
         )
     }
