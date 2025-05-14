@@ -20,6 +20,7 @@
   font-size: 5vw;
   font-weight: bold;
   font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  color: rgb(226, 226, 34);
 }
 
 .searchContainer {
@@ -38,8 +39,8 @@
 }
 
 .searchButton {
-  color: yellow;
-  background-color: darkgrey;
+  color:rgb(255, 255, 0);
+  background-color: rgb(122, 146, 224);
   padding: auto;
   border-radius: 5px;
   font-size: 1rem;
@@ -77,4 +78,40 @@
   margin-left: 2vw;
   font-size: 4vw;
   padding-top: 1vw;
+}
+
+@media (max-width: 425px) {
+  .searchButton {
+    width: 18%;
+  }
+}
+
+@media (min-width: 570px) and (max-width: 1000px) {
+  .searchButton {
+    width: 10%;
+  }
+}
+
+@media (min-width: 1001px) {
+  .searchButton {
+    width: 7%;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1100px) {
+  .notFound {
+    font-size: 3vw;
+  }
+}
+
+@media (min-width: 1101px) {
+  .notFound {
+    font-size: 2.5vw;
+  }
+}
+
+@media (min-width: 750px) {
+  .searchTip {
+    font-size: 1.5vw;
+  }
 }

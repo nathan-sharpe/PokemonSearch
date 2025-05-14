@@ -17,6 +17,7 @@ function Homepage() {
     const [pokedexNumber, setPokedexNumber] = useState()
     const [isApiCallSuccessful, setIsApiCallSuccessful] = useState(null)
     const [apiCalled, setApiCalled] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     function updatePokemonName(event) {
         setPokemonName(event.target.value)
@@ -24,10 +25,12 @@ function Homepage() {
 
     async function searchForPokemon() {
         try {
+            setIsLoading(true)
             setApiCalled(true)
             const dataSource = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
             const response = await fetch(dataSource)
             setIsApiCallSuccessful(true)
+            setIsLoading(false)
             const data = await response.json()
             const sprite = data.sprites.front_default
             setPokemonSprite(sprite)
@@ -68,6 +71,7 @@ function Homepage() {
                 pokemonName={pokemonName}
                 updatePokemonName={updatePokemonName}
                 searchForPokemon={searchForPokemon}
+                isLoading={isLoading}
             />
             <div className='resultsContainer'>
                 <h2>Pokemon Found!</h2>
@@ -133,6 +137,7 @@ function Homepage() {
                     pokemonName={pokemonName}
                     updatePokemonName={updatePokemonName}
                     searchForPokemon={searchForPokemon}
+                    isLoading={isLoading}
                 />
                 <h2 className='notFound'>Pokemon not found, please double check spelling.</h2>
             </>
@@ -145,6 +150,7 @@ function Homepage() {
                     pokemonName={pokemonName}
                     updatePokemonName={updatePokemonName}
                     searchForPokemon={searchForPokemon}
+                    isLoading={isLoading}
                 />
             </>
         )
