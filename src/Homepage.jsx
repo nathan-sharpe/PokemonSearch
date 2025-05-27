@@ -23,110 +23,122 @@ function Homepage() {
         setPokemonName(event.target.value)
     }
 
-    async function searchForPokemon() {
+    async function fetchData(identifier) {
         try {
             setIsLoading(true)
             setApiCalled(true)
-            const dataSource = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+            const dataSource = `https://pokeapi.co/api/v2/pokemon/${identifier}`
             const response = await fetch(dataSource)
-            setIsApiCallSuccessful(true)
-            setIsLoading(false)
             const data = await response.json()
-            const sprite = data.sprites.front_default
-            setPokemonSprite(sprite)
-            const dexNum = data.id
-            setPokedexNumber(dexNum)
-            const hp = data.stats[0].base_stat
-            setPokemonHP(hp)
-            const attack = data.stats[1].base_stat
-            setPokemonAttack(attack)
-            const defense = data.stats[2].base_stat
-            setPokemonDefense(defense)
-            const specialAttack = data.stats[3].base_stat
-            setPokemonSpecialAttack(specialAttack)
-            const specialDefense = data.stats[4].base_stat
-            setPokemonSpecialDefense(specialDefense)
-            const speed = data.stats[5].base_stat
-            setPokemonSpeed(speed)
-            const abilities = data.abilities
-            setPokemonAbilities(abilities)
-            const types = data.types
-            setPokemonTypes(types)
+            setIsApiCallSuccessful(true)
+            setPokemonSprite(data.sprites.front_default)
+            setPokedexNumber(data.id)
+            setPokemonHP(data.stats[0].base_stat)
+            setPokemonAttack(data.stats[1].base_stat)
+            setPokemonDefense(data.stats[2].base_stat)
+            setPokemonSpecialAttack(data.stats[3].base_stat)
+            setPokemonSpecialDefense(data.stats[4].base_stat)
+            setPokemonSpeed(data.stats[5].base_stat)
+            setPokemonAbilities(data.abilities)
+            setPokemonTypes(data.types)
             const moves = data.moves
             moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
             setPokemonMoves(moves)
-            console.log(data)
-            console.log(abilities)
+            setIsLoading(false)
         }
+
         catch(error) {
             setIsApiCallSuccessful(false)
+            setIsLoading(false)
             console.error(error)
+        }
+    }
+
+    async function searchForPokemon() {
+        await fetchData(pokemonName)
+    }
+
+    async function handleNext() {
+        if (pokedexNumber && pokedexNumber < 1025) {
+            await fetchData(pokedexNumber + 1)
+            setPokemonName("")
+        }
+    }
+
+    async function handlePrevious() {
+        if (pokedexNumber && pokedexNumber > 1) {
+            await fetchData(pokedexNumber - 1)
+            setPokedexName("")
         }
     }
 
     if (isApiCallSuccessful == true && apiCalled == true) {
         return (
             <div>
-            <Header
-                pokemonName={pokemonName}
-                updatePokemonName={updatePokemonName}
-                searchForPokemon={searchForPokemon}
-                isLoading={isLoading}
-            />
-            <div className='resultsContainer'>
-                <h2>Pokemon Found!</h2>
-                <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
-                <h2>Pokedex Number: {pokedexNumber}</h2><br/>
-                <h2>Types: </h2>
-                <ul>
-                        {
-                            pokemonTypes.map((type) => {
+                <Header
+                    pokemonName={pokemonName}
+                    updatePokemonName={updatePokemonName}
+                    searchForPokemon={searchForPokemon}
+                    isLoading={isLoading}
+                />
+                <div className='resultsContainer'>
+                    <h2>Pokemon Found!</h2>
+                    <div className="navButtonContainer">
+                        <button className="navButton" onClick={handlePrevious} disabled={isLoading}>Previous Pokemon</button>
+                        <button className="navButton" onClick={handleNext} disabled={isLoading}>Next Pokemon</button>
+                    </div>
+                    <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
+                    <h2>Pokedex Number: {pokedexNumber}</h2><br/>
+                    <h2>Types: </h2>
+                    <ul>
+                            {
+                                pokemonTypes.map((type) => {
+                                    return (
+                                        <li key= {type.type['name']}>
+                                            {type.type['name']}
+                                        </li>
+                                    )
+                                })
+                            }
+                    </ul>
+                    <br />
+                    <h2>Stat Distribution:</h2>
+                    <ul>
+                        <li>HP: {pokemonHP}</li>
+                        <li>Attack: {pokemonAttack}</li>
+                        <li>Defense: {pokemonDefense}</li>
+                        <li>Special Attack: {pokemonSpecialAttack}</li>
+                        <li>Special Defense: {pokemonSpecialDefense}</li>
+                        <li>Speed: {pokemonSpeed}</li>
+                    </ul>
+                    <br />
+                    <h2>Abilities:</h2>
+                    <ol>
+                    {
+                            pokemonAbilities.map((ability) => {
                                 return (
-                                    <li key= {type.type['name']}>
-                                        {type.type['name']}
+                                    <li key= {ability.ability['name']}>
+                                        {ability.ability['name']}
+                                        {ability['is_hidden'] ? " (Hidden ability)" : null}
                                     </li>
                                 )
                             })
                         }
-                </ul>
-                <br />
-                <h2>Stat Distribution:</h2>
-                <ul>
-                    <li>HP: {pokemonHP}</li>
-                    <li>Attack: {pokemonAttack}</li>
-                    <li>Defense: {pokemonDefense}</li>
-                    <li>Special Attack: {pokemonSpecialAttack}</li>
-                    <li>Special Defense: {pokemonSpecialDefense}</li>
-                    <li>Speed: {pokemonSpeed}</li>
-                </ul>
-                <br />
-                <h2>Abilities:</h2>
-                <ol>
-                {
-                        pokemonAbilities.map((ability) => {
-                            return (
-                                <li key= {ability.ability['name']}>
-                                    {ability.ability['name']}
-                                    {ability['is_hidden'] ? " (Hidden ability)" : null}
-                                </li>
-                            )
-                        })
-                    }
-                </ol><br />
-                <h2>Learnset:</h2>
-                <ol>
-                    {
-                        pokemonMoves.map((move) => {
-                            return (
-                                <li key= {move.move['name']}>
-                                    Move: {move.move['name']},
-                                    Learned at Level: {move.version_group_details[0].level_learned_at}
-                                </li>
-                            )
-                        })
-                    }
-                </ol>
-                </div>
+                    </ol><br />
+                    <h2>Learnset:</h2>
+                    <ol>
+                        {
+                            pokemonMoves.map((move) => {
+                                return (
+                                    <li key= {move.move['name']}>
+                                        Move: {move.move['name']},
+                                        Learned at Level: {move.version_group_details[0].level_learned_at}
+                                    </li>
+                                )
+                            })
+                        }
+                    </ol>
+                    </div>
             </div>
         )
     }
