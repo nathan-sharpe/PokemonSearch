@@ -47,7 +47,6 @@ function Homepage() {
             moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
             setPokemonMoves(moves)
             setIsLoading(false)
-            console.log(data)
         }
 
         catch(error) {

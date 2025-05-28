@@ -74,6 +74,11 @@
   margin-top: 10px;
 }
 
+.navButton:disabled {
+  cursor: not-allowed;
+  background-color: hsla(226, 62%, 68%, 0.638);
+}
+
 .searchTip {
   font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
   font-weight: bold;
@@ -91,7 +96,7 @@
 }
 
 .spriteImg {
-  width: 60vw;
+  width: 50vw;
   height: auto;
 }
 
@@ -220,5 +225,23 @@
   .headerImg, .headerSearch {
     width: 24vw;
     font-size: 8vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .spriteImg {
+    width: 60vw;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 615px) {
+  .spriteImg {
+    width: 75vw;
+  }
+}
+
+@media (max-width: 399px) {
+  .spriteImg {
+    width: 90vw;
   }
 }
