@@ -4,6 +4,7 @@ import Header from './Header.jsx'
 function Homepage() {
 
     const [pokemonName, setPokemonName] = useState("")
+    const [pokedexName, setPokedexName] = useState("")
     const [pokemonSprite, setPokemonSprite] = useState()
     const [pokemonHP, setPokemonHP] = useState(0)
     const [pokemonAttack, setPokemonAttack] = useState(0)
@@ -32,6 +33,7 @@ function Homepage() {
             const data = await response.json()
             setIsApiCallSuccessful(true)
             setPokemonSprite(data.sprites.front_default)
+            setPokedexName(data.name)
             setPokedexNumber(data.id)
             setPokemonHP(data.stats[0].base_stat)
             setPokemonAttack(data.stats[1].base_stat)
@@ -45,6 +47,7 @@ function Homepage() {
             moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
             setPokemonMoves(moves)
             setIsLoading(false)
+            console.log(data)
         }
 
         catch(error) {
@@ -87,6 +90,8 @@ function Homepage() {
                         <button className="navButton" onClick={handlePrevious} disabled={isLoading}>Previous Pokemon</button>
                         <button className="navButton" onClick={handleNext} disabled={isLoading}>Next Pokemon</button>
                     </div>
+                    <br />
+                    <h2>Pokemon Name: {pokedexName.charAt(0).toUpperCase() + pokedexName.slice(1)}</h2>
                     <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
                     <h2>Pokedex Number: {pokedexNumber}</h2><br/>
                     <h2>Types: </h2>
@@ -138,6 +143,7 @@ function Homepage() {
                             })
                         }
                     </ol>
+                    <br />
                     </div>
             </div>
         )

@@ -34,7 +34,7 @@
 .searchBar {
   margin-top: 2vw;
   margin-left: 2vw;
-  width: 35vw;
+  width: 45vw;
   height: 25px;
   border-radius: 5px;
 }
@@ -91,7 +91,7 @@
 }
 
 .spriteImg {
-  width: 40vw;
+  width: 60vw;
   height: auto;
 }
 
@@ -132,9 +132,33 @@
   }
 }
 
-@media (min-width: 750px) {
+@media (min-width: 1100px) {
   .searchTip {
-    font-size: 1.5vw;
+    font-size: 1.6vw;
+  }
+}
+
+@media (min-width: 820px) and (max-width: 1099px) {
+  .searchTip {
+    font-size: 1.8vw;
+  }
+}
+
+@media (min-width: 550px) and (max-width: 819px) {
+  .searchTip {
+    font-size: 2.3vw;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 549px) {
+  .searchTip {
+    font-size: 3vw;
+  }
+}
+
+@media (max-width: 399px) {
+  .searchTip {
+    font-size: 3.6vw;
   }
 }
 
@@ -177,5 +201,24 @@
 @media (max-width: 444px) {
   .navButton {
     width: 48%;
+  }
+}
+
+@media (min-width: 430px) and (max-width: 650px) {
+  .searchBar {
+    width: 65vw;
+  }
+}
+
+@media (max-width: 429px) {
+  .searchBar {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 575px) {
+  .headerImg, .headerSearch {
+    width: 24vw;
+    font-size: 8vw;
   }
 }
