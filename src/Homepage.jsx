@@ -47,6 +47,7 @@ function Homepage() {
             moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
             setPokemonMoves(moves)
             setIsLoading(false)
+            console.log(data)
         }
 
         catch(error) {
@@ -98,8 +99,8 @@ function Homepage() {
                             {
                                 pokemonTypes.map((type) => {
                                     return (
-                                        <li key= {type.type['name']}>
-                                            {type.type['name']}
+                                        <li key= {type.type.name}>
+                                            {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
                                         </li>
                                     )
                                 })
@@ -121,22 +122,25 @@ function Homepage() {
                     {
                             pokemonAbilities.map((ability) => {
                                 return (
-                                    <li key= {ability.ability['name']}>
-                                        {ability.ability['name']}
-                                        {ability['is_hidden'] ? " (Hidden ability)" : null}
+                                    <li key= {ability.ability.name}>
+                                        {ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}
+                                        {ability.is_hidden ? " (Hidden ability)" : null}
                                     </li>
                                 )
                             })
                         }
                     </ol><br />
-                    <h2>Learnset:</h2>
+                    <h2>Moves Learned:</h2>
                     <ol>
                         {
                             pokemonMoves.map((move) => {
                                 return (
-                                    <li key= {move.move['name']}>
-                                        Move: {move.move['name']},
-                                        Learned at Level: {move.version_group_details[0].level_learned_at}
+                                    <li key= {move.move.name}>
+                                        Move: {move.move.name.charAt(0).toUpperCase() +move.move.name.slice(1)},
+                                        {move.version_group_details[0].move_learn_method.name == "machine" ? " Learned by machine" : null}
+                                        {move.version_group_details[0].move_learn_method.name == "tutor" ? " Learned by move tutor" : null}
+                                        {move.version_group_details[0].move_learn_method.name == "egg" ? " Egg move" : null}
+                                        {move.version_group_details[0].move_learn_method.name == "level-up" ? ` Learned at level ${move.version_group_details[0].level_learned_at}` : null}
                                     </li>
                                 )
                             })

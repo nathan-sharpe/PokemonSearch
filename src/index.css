@@ -11,16 +11,17 @@
 .headerImg {
   width: 15vw;
   height: auto;
-  padding-right: 2vw;
+  padding-right: 1vw;
   margin-left: 2vw;
 }
 
 .headerSearch {
   align-self: center;
-  font-size: 5vw;
-  font-weight: bold;
-  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
-  color: rgb(226, 226, 34);
+  font-size: 5.5vw;
+  font-family: "Quantico", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: hsl(54, 100%, 50%);
 }
 
 .searchContainer {
@@ -45,10 +46,11 @@
   padding: auto;
   border-radius: 5px;
   font-size: 1rem;
-  width: 15%;
+  width: 9%;
   height: 28.5px;
-  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  font-family: "Tomorrow", sans-serif;
   font-weight: bold;
+  font-style: normal;
   border-style: none;
   cursor: pointer;
 }
@@ -65,30 +67,35 @@
   padding: auto;
   border-radius: 5px;
   font-size: 1rem;
-  width: 11%;
+  width: 13%;
   height: 28.5px;
-  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  font-family: "Tomorrow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
   font-weight: bold;
   border-style: none;
   cursor: pointer;
   margin-top: 10px;
 }
 
-.navButton:disabled {
+.navButton:disabled, .searchButton:disabled {
   cursor: not-allowed;
   background-color: hsla(226, 62%, 68%, 0.638);
 }
 
 .searchTip {
-  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  font-family: "Tomorrow", sans-serif;
   font-weight: bold;
+  font-style: normal;
   margin-left: 2vw;
   font-size: 2vw;
 }
 
 .resultsContainer {
   margin-left: 2vw;
-  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  font-family: "Tomorrow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .resultsContainer li {
@@ -107,21 +114,39 @@
   padding-top: 1vw;
 }
 
-@media (max-width: 425px) {
-  .searchButton {
-    width: 18%;
-  }
+.tomorrow-light {
+  font-family: "Tomorrow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }
 
-@media (min-width: 570px) and (max-width: 1000px) {
+.quantico-bold {
+  font-family: "Quantico", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@media (max-width: 1600px) {
   .searchButton {
     width: 10%;
   }
 }
 
-@media (min-width: 1001px) {
+@media (min-width: 600px) and (max-width: 915px) {
   .searchButton {
-    width: 7%;
+    width: 14%;
+  }
+}
+
+@media (min-width: 451px) and (max-width: 599px) {
+  .searchButton {
+    width: 18%;
+  }
+}
+
+@media (max-width: 450px) {
+  .searchButton {
+    width: 25%;
   }
 }
 
@@ -167,57 +192,43 @@
   }
 }
 
-@media (max-width: 1328px) {
-  .navButton {
-    width: 13%;
-  }
-}
-
-@media (min-width: 946px) and (max-width: 1098px) {
+@media (max-width: 1500px) {
   .navButton {
     width: 15%;
   }
 }
 
-@media (min-width: 831px) and (max-width: 945px) {
+@media (min-width: 950px) and (max-width: 1120px) {
   .navButton {
-    width: 17%;
+    width: 18%;
   }
 }
 
-@media (min-width: 705px) and (max-width: 830px) {
+@media (min-width: 700px) and (max-width: 949px) {
   .navButton {
-    width: 20%;
+    width: 24%;
   }
 }
 
-@media (min-width: 547px) and (max-width: 704px) {
+@media (min-width: 565px) and (max-width: 699px) {
   .navButton {
-    width: 26%;
+    width: 30%;
   }
 }
 
-@media (min-width: 445px) and (max-width: 546px) {
+@media (max-width: 564px) {
   .navButton {
-    width: 32%;
+    flex-grow: 1;
+  }
+
+  .navButtonContainer {
+    gap: 5px;
   }
 }
 
-@media (max-width: 444px) {
-  .navButton {
-    width: 48%;
-  }
-}
-
-@media (min-width: 430px) and (max-width: 650px) {
+@media (max-width: 675px) {
   .searchBar {
-    width: 65vw;
-  }
-}
-
-@media (max-width: 429px) {
-  .searchBar {
-    width: 80vw;
+    flex-grow: 1;
   }
 }
 
