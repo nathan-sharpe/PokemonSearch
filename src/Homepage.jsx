@@ -46,19 +46,21 @@ function Homepage() {
             const moves = data.moves
             moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
             setPokemonMoves(moves)
-            setIsLoading(false)
             console.log(data)
         }
 
         catch(error) {
             setIsApiCallSuccessful(false)
-            setIsLoading(false)
             console.error(error)
+        }
+
+        finally {
+            setIsLoading(false)
         }
     }
 
     async function searchForPokemon() {
-        await fetchData(pokemonName)
+        await fetchData(pokemonName.toLowerCase())
     }
 
     async function handleNext() {
@@ -71,7 +73,7 @@ function Homepage() {
     async function handlePrevious() {
         if (pokedexNumber && pokedexNumber > 1) {
             await fetchData(pokedexNumber - 1)
-            setPokedexName("")
+            setPokemonName("")
         }
     }
 
