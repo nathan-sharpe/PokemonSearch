@@ -3,9 +3,32 @@
   padding: 0;
 }
 
+:root {
+  --background-color: white;
+  --text-color: black;
+  --header-bg-color: white;
+  --button-bg-color: rgb(122, 146, 224);
+  --button-text-color: rgb(255, 255, 0);
+}
+
+.dark-theme {
+  --background-color: black;
+  --text-color: white;
+  --header-bg-color: hsl(0, 0%, 0%);
+  --button-bg-color: rgb(80, 100, 180);
+  --button-text-color: rgb(255, 255, 100);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .headerContainer {
   display: flex;
   flex-direction: row;
+  background-color: var(--header-bg-color);
 }
 
 .headerImg {
@@ -41,8 +64,8 @@
 }
 
 .searchButton {
-  color:rgb(255, 255, 0);
-  background-color: rgb(122, 146, 224);
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
   padding: auto;
   border-radius: 5px;
   font-size: 1rem;
@@ -62,8 +85,8 @@
 }
 
 .navButton {
-  color:rgb(255, 255, 0);
-  background-color: rgb(122, 146, 224);
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
   padding: auto;
   border-radius: 5px;
   font-size: 1rem;
@@ -96,6 +119,7 @@
   font-family: "Tomorrow", sans-serif;
   font-weight: 300;
   font-style: normal;
+  color: var(--text-color);
 }
 
 .resultsContainer li {
@@ -124,6 +148,25 @@
   font-family: "Quantico", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+.themeToggleButton {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  padding: auto;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 13%;
+  height: 28.5px;
+  font-family: "Tomorrow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-weight: bold;
+  border-style: none;
+  cursor: pointer;
+  align-self: center;
+  margin-left: auto;
+  margin-right: 2%;
 }
 
 @media (max-width: 1600px) {
@@ -193,25 +236,25 @@
 }
 
 @media (max-width: 1500px) {
-  .navButton {
+  .navButton, .themeToggleButton {
     width: 15%;
   }
 }
 
 @media (min-width: 950px) and (max-width: 1120px) {
-  .navButton {
+  .navButton, .themeToggleButton {
     width: 18%;
   }
 }
 
 @media (min-width: 700px) and (max-width: 949px) {
-  .navButton {
+  .navButton, .themeToggleButton {
     width: 24%;
   }
 }
 
 @media (min-width: 565px) and (max-width: 699px) {
-  .navButton {
+  .navButton, .themeToggleButton {
     width: 30%;
   }
 }
@@ -223,6 +266,11 @@
 
   .navButtonContainer {
     gap: 5px;
+  }
+
+  .themeToggleButton {
+    font-size: 0.8rem;
+    width: 40%;
   }
 }
 

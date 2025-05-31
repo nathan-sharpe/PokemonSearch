@@ -1,6 +1,8 @@
 import logo from "./assets/PokemonLogo.png"
+import { useTheme } from "./ThemeContext"
 
 function Header(props) {
+    const {theme, toggleTheme} = useTheme()
 
     function handleKeyDown(event) {
         if (event.key === "Enter") {
@@ -13,6 +15,7 @@ function Header(props) {
             <div className='headerContainer'>
                 <img src={logo} className='headerImg' />
                 <p className='headerSearch'>Search</p>
+                <button onClick={toggleTheme} className="themeToggleButton">Activate {theme === 'light' ? 'Dark' : 'Light'} Mode</button>
             </div>
             <hr />
             <div className='searchContainer'>
