@@ -120,6 +120,7 @@ body {
   font-weight: 300;
   font-style: normal;
   color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 .resultsContainer li {
@@ -132,7 +133,8 @@ body {
 }
 
 .notFound {
-  font-family: "Cambria", "Cochin", "Georgia", "Times", 'Times New Roman', "serif";
+  font-family: "Tomorrow", sans-serif;
+  font-weight: bold;
   margin-left: 2vw;
   font-size: 4vw;
   padding-top: 1vw;
@@ -154,7 +156,6 @@ body {
   background-color: var(--button-bg-color);
   color: var(--button-text-color);
   padding: auto;
-  border-radius: 5px;
   font-size: 1rem;
   width: 13%;
   height: 28.5px;
@@ -193,9 +194,15 @@ body {
   }
 }
 
+@media (max-width: 599px) {
+  .notFound {
+    font-size: 5vw;
+  }
+}
+
 @media (min-width: 600px) and (max-width: 1100px) {
   .notFound {
-    font-size: 3vw;
+    font-size: 4vw;
   }
 }
 
