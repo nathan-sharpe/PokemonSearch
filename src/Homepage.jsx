@@ -41,7 +41,23 @@ function Homepage() {
             setPokemonSpecialAttack(data.stats[3].base_stat)
             setPokemonSpecialDefense(data.stats[4].base_stat)
             setPokemonSpeed(data.stats[5].base_stat)
-            setPokemonAbilities(data.abilities)
+
+            // Concurrent API call for ability descriptions
+            const abilitiesWithDescriptions = await Promise.all(
+                data.abilities.map(async (abilityData) => {
+                    const abilityResponse = await fetch(abilityData.ability.url)
+                    const abilityDetails = await abilityResponse.json()
+                    const englishDescription = abilityDetails.effect_entries.find(
+                        (entry) => entry.language.name === 'en'
+                    )
+                    return {
+                        ...abilityData,
+                        description: englishDescription ? englishDescription.short_effect : 'No description available.',
+                    }
+                })
+            )
+            setPokemonAbilities(abilitiesWithDescriptions)
+
             setPokemonTypes(data.types)
             const moves = data.moves
             moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
@@ -127,6 +143,7 @@ function Homepage() {
                                     <li key= {ability.ability.name}>
                                         {ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}
                                         {ability.is_hidden ? " (Hidden ability)" : null}
+                                        {ability.description && `: ${ability.description}`}
                                     </li>
                                 )
                             })
