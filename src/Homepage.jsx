@@ -59,9 +59,34 @@ function Homepage() {
             setPokemonAbilities(abilitiesWithDescriptions)
 
             setPokemonTypes(data.types)
-            const moves = data.moves
-            moves.sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at)
-            setPokemonMoves(moves)
+            // Concurrent API call to fetch additional information on moves
+            const movesWithDetails = await Promise.all(
+                data.moves.map(async (moveData) => {
+                    const moveResponse = await fetch(moveData.move.url)
+                    const moveDetails = await moveResponse.json()
+
+                    const damageClassEnglish = moveDetails.damage_class?.name || 'N/A';
+
+                    const moveTypeEnglish = moveDetails.type?.name?.charAt(0).toUpperCase() + moveDetails.type?.name?.slice(1) || 'N/A'
+
+
+                    return {
+                        ...moveData,
+                        power: moveDetails.power || '-', // Power can be null for status moves
+                        accuracy: moveDetails.accuracy || '-', // Accuracy can be null for status moves
+                        damageType: damageClassEnglish,
+                        type: moveTypeEnglish,
+                    }
+                })
+            )
+
+            movesWithDetails.sort((a, b) => {
+                const levelA = a.version_group_details[0]?.level_learned_at ?? 0;
+                const levelB = b.version_group_details[0]?.level_learned_at ?? 0;
+                return levelA - levelB;
+            });
+            setPokemonMoves(movesWithDetails)
+
             console.log(data)
         }
 
@@ -150,27 +175,55 @@ function Homepage() {
                         }
                     </ol><br />
                     <h2>Moves Learned:</h2>
-                    <ol>
-                        {
-                            pokemonMoves.map((move) => {
-                                return (
-                                    <li key= {move.move.name}>
-                                        Move: {move.move.name.charAt(0).toUpperCase() +move.move.name.slice(1)},
-                                        {move.version_group_details[0].move_learn_method.name == "machine" ? " Learned by machine" : null}
-                                        {move.version_group_details[0].move_learn_method.name == "tutor" ? " Learned by move tutor" : null}
-                                        {move.version_group_details[0].move_learn_method.name == "egg" ? " Egg move" : null}
-                                        {move.version_group_details[0].move_learn_method.name == "level-up" ? ` Learned at level ${move.version_group_details[0].level_learned_at}` : null}
-                                    </li>
-                                )
-                            })
-                        }
-                    </ol>
-                    <br />
+                     <div className="movesTableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Learn Method</th>
+                                    <th>Type</th>
+                                    <th>Power</th>
+                                    <th>Accuracy</th>
+                                    <th>Damage Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    pokemonMoves.map((move) => {
+                                        const learnMethod = move.version_group_details[0]?.move_learn_method?.name;
+                                        let displayLearnMethod = "";
+                                        if (learnMethod === "machine") {
+                                            displayLearnMethod = "Machine";
+                                        } else if (learnMethod === "tutor") {
+                                            displayLearnMethod = "Move Tutor";
+                                        } else if (learnMethod === "egg") {
+                                            displayLearnMethod = "Egg Move";
+                                        } else if (learnMethod === "level-up") {
+                                            displayLearnMethod = `Level ${move.version_group_details[0]?.level_learned_at}`;
+                                        } else {
+                                            displayLearnMethod = learnMethod || 'N/A';
+                                        }
+
+                                        return (
+                                            <tr key={move.move.name}>
+                                                <td>{move.move.name.charAt(0).toUpperCase() + move.move.name.slice(1)}</td>
+                                                <td>{displayLearnMethod}</td>
+                                                <td>{move.type}</td>
+                                                <td>{move.power}</td>
+                                                <td>{move.accuracy}</td>
+                                                <td>{move.damageType.charAt(0).toUpperCase() + move.damageType.slice(1)}</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
                     </div>
+                    <br />
+                </div>
             </div>
         )
-    }
-    else if (isApiCallSuccessful == false && apiCalled == true) {
+    } else if (isApiCallSuccessful == false && apiCalled == true) {
         return (
             <>
                 <Header
