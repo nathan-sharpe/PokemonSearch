@@ -59,6 +59,7 @@ function Homepage() {
             setPokemonAbilities(abilitiesWithDescriptions)
 
             setPokemonTypes(data.types)
+
             // Concurrent API call to fetch additional information on moves
             const movesWithDetails = await Promise.all(
                 data.moves.map(async (moveData) => {
@@ -88,6 +89,7 @@ function Homepage() {
             setPokemonMoves(movesWithDetails)
 
             console.log(data)
+            console.log(movesWithDetails)
         }
 
         catch(error) {

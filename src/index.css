@@ -4,21 +4,21 @@
 }
 
 :root {
-  --background-color: white;
-  --text-color: black;
+  --background-color: hsl(0, 0%, 100%);
+  --text-color: hsl(0, 0%, 0%);
   --header-bg-color: white;
   --button-bg-color: rgb(122, 146, 224);
   --button-text-color: rgb(255, 255, 0);
-  --light-row-bg-color: hsl(0, 0%, 98%);
+  --light-row-bg-color: hsl(0, 0%, 90%);
 }
 
 .dark-theme {
-  --background-color: black;
-  --text-color: white;
+  --background-color: hsl(0, 0%, 0%);
+  --text-color: hsl(0, 0%, 100%);
   --header-bg-color: hsl(0, 0%, 0%);
   --button-bg-color: rgb(80, 100, 180);
   --button-text-color: rgb(255, 255, 100);
-  --light-row-bg-color: #333333;
+  --light-row-bg-color: hsl(0, 0%, 20%);
 }
 
 body {
@@ -173,9 +173,8 @@ body {
 }
 
 .movesTableContainer {
-  overflow-x: auto;
-  overflow-y: auto;
-  margin-top: 15px;
+  overflow: auto;
+  margin-top: 10px;
   margin-bottom: 20px;
   width: 96vw;
   max-height: 800px;
@@ -207,7 +206,7 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: var(--light-row-bg-color, hsl(0, 0%, 98%));
+  background-color: var(--light-row-bg-color);
 }
 
 @media (max-width: 1600px) {
