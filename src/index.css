@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
@@ -10,6 +11,8 @@
   --button-bg-color: rgb(122, 146, 224);
   --button-text-color: rgb(255, 255, 0);
   --light-row-bg-color: hsl(0, 0%, 90%);
+  --link-color: rgb(62, 101, 227);
+  --footer-bg-color: hsl(0, 0%, 85%);
 }
 
 .dark-theme {
@@ -19,12 +22,40 @@
   --button-bg-color: rgb(80, 100, 180);
   --button-text-color: rgb(255, 255, 100);
   --light-row-bg-color: hsl(0, 0%, 20%);
+  --link-color: rgb(255, 255, 100);
+  --footer-bg-color: hsl(0, 0%, 6%);
+}
+
+html, body, #root {
+  height: 100%;
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mainContentArea {
+  flex-grow: 1;
+  padding-bottom: 20px;
+}
+
+.initialPrompt {
+  font-family: "Tomorrow", sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  text-align: center;
+  padding-top: 50px;
+  margin-left: 2vw;
+  margin-right: 2vw;
 }
 
 .headerContainer {
@@ -52,17 +83,21 @@ body {
 .searchContainer {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-start;
   gap: 3px;
+  margin-top: 2vw;
+  margin-left: 2vw;
 }
 
 .searchBar {
-  margin-top: 2vw;
-  margin-left: 2vw;
   width: 45vw;
-  height: 25px;
   border-radius: 5px;
+  padding: 0.5em 0.8em;
+  height: 28.5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  line-height: normal;
 }
 
 .searchButton {
@@ -72,12 +107,15 @@ body {
   border-radius: 5px;
   font-size: 1rem;
   width: 9%;
-  height: 28.5px;
   font-family: "Tomorrow", sans-serif;
   font-weight: bold;
   font-style: normal;
   border-style: none;
   cursor: pointer;
+  flex-shrink: 0;
+  height: 28.5px;
+  line-height: normal;
+  vertical-align: middle;
 }
 
 .navButtonContainer{
@@ -93,7 +131,6 @@ body {
   border-radius: 5px;
   font-size: 1rem;
   width: 13%;
-  height: 28.5px;
   font-family: "Tomorrow", sans-serif;
   font-weight: 300;
   font-style: normal;
@@ -101,6 +138,7 @@ body {
   border-style: none;
   cursor: pointer;
   margin-top: 10px;
+  height: 28.5px;
 }
 
 .navButton:disabled, .searchButton:disabled {
@@ -113,6 +151,7 @@ body {
   font-weight: bold;
   font-style: normal;
   margin-left: 2vw;
+  margin-right: 2vw;
   font-size: 2vw;
 }
 
@@ -160,7 +199,6 @@ body {
   padding: auto;
   font-size: 1rem;
   width: 13%;
-  height: 28.5px;
   font-family: "Tomorrow", sans-serif;
   font-weight: 300;
   font-style: normal;
@@ -170,6 +208,7 @@ body {
   align-self: center;
   margin-left: auto;
   margin-right: 2%;
+  height: 28.5px;
 }
 
 .movesTableContainer {
@@ -207,6 +246,47 @@ th {
 
 tr:nth-child(even) {
   background-color: var(--light-row-bg-color);
+}
+
+.footerContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: var(--footer-bg-color);
+  color: var(--text-color);
+  padding-left: 2vw;
+  margin-top: auto;
+}
+
+.footerColumn {
+  grid-row: span 1;
+  grid-column: span 1;
+  margin-bottom: 20px;
+  margin-top: 3%;
+  background-color: var(--footer-bg-color);
+  color: var(--text-color);
+  font-family: "Tomorrow", sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.footerList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footerLink {
+  text-decoration: none;
+  color: var(--link-color);
+  font-weight: bold;
+}
+
+.poweredBy {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.footerColumn h3 {
+  font-size: 1.5rem;
 }
 
 @media (max-width: 1600px) {
@@ -356,11 +436,49 @@ tr:nth-child(even) {
     font-size: 0.8rem;
     padding: 6px;
   }
+
+  .apiLogo {
+    width: 60%;
+    height: auto;
+  }
 }
 
 @media (max-width: 480px) {
   th, td {
     font-size: 0.7rem;
     padding: 4px;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 600px) {
+  .apiLogo {
+    width: 75%;
+    height: auto;
+  }
+}
+
+@media (max-width: 399px) {
+  .apiLogo {
+    width: 95%;
+    height: auto;
+  }
+}
+
+@media (max-width: 976px) {
+  .footerColumn h3 {
+    font-size: 1.1rem;
+  }
+
+  .footerColumn {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 574px) {
+  .footerColumn h3 {
+    font-size: 1rem;
+  }
+  .footerColumn {
+    font-size: 0.8rem;
   }
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Header from './Header.jsx'
+import Footer from './Footer.jsx'
 
 function Homepage() {
 
@@ -120,136 +121,120 @@ function Homepage() {
         }
     }
 
-    if (isApiCallSuccessful == true && apiCalled == true) {
-        return (
-            <div>
-                <Header
-                    pokemonName={pokemonName}
-                    updatePokemonName={updatePokemonName}
-                    searchForPokemon={searchForPokemon}
-                    isLoading={isLoading}
-                />
-                <div className='resultsContainer'>
-                    <h2>Pokemon Found!</h2>
-                    <div className="navButtonContainer">
-                        <button className="navButton" onClick={handlePrevious} disabled={isLoading}>Previous Pokemon</button>
-                        <button className="navButton" onClick={handleNext} disabled={isLoading}>Next Pokemon</button>
-                    </div>
-                    <br />
-                    <h2>Pokemon Name: {pokedexName.charAt(0).toUpperCase() + pokedexName.slice(1)}</h2>
-                    <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
-                    <h2>Pokedex Number: {pokedexNumber}</h2><br/>
-                    <h2>Types: </h2>
-                    <ul>
-                            {
-                                pokemonTypes.map((type) => {
+       return (
+        <>
+            <Header
+                pokemonName={pokemonName}
+                updatePokemonName={updatePokemonName}
+                searchForPokemon={searchForPokemon}
+                isLoading={isLoading}
+            />
+
+            <div className="mainContentArea">
+                {isApiCallSuccessful === true && apiCalled === true ? (
+                    <div className='resultsContainer'>
+                        <h2>Pokemon Found!</h2>
+                        <div className="navButtonContainer">
+                            <button className="navButton" onClick={handlePrevious} disabled={isLoading}>Previous Pokemon</button>
+                            <button className="navButton" onClick={handleNext} disabled={isLoading}>Next Pokemon</button>
+                        </div>
+                        <br />
+                        <h2>Pokemon Name: {pokedexName.charAt(0).toUpperCase() + pokedexName.slice(1)}</h2>
+                        <img src={pokemonSprite}  alt="Pokemon Sprite" className='spriteImg'/><br />
+                        <h2>Pokedex Number: {pokedexNumber}</h2><br/>
+                        <h2>Types: </h2>
+                        <ul>
+                                {
+                                    pokemonTypes.map((type) => {
+                                        return (
+                                            <li key= {type.type.name}>
+                                                {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
+                                            </li>
+                                        )
+                                    })
+                                }
+                        </ul>
+                        <br />
+                        <h2>Stat Distribution:</h2>
+                        <ul>
+                            <li>HP: {pokemonHP}</li>
+                            <li>Attack: {pokemonAttack}</li>
+                            <li>Defense: {pokemonDefense}</li>
+                            <li>Special Attack: {pokemonSpecialAttack}</li>
+                            <li>Special Defense: {pokemonSpecialDefense}</li>
+                            <li>Speed: {pokemonSpeed}</li>
+                        </ul>
+                        <br />
+                        <h2>Abilities:</h2>
+                        <ol>
+                        {
+                                pokemonAbilities.map((ability) => {
                                     return (
-                                        <li key= {type.type.name}>
-                                            {type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}
+                                        <li key= {ability.ability.name}>
+                                            {ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}
+                                            {ability.is_hidden ? " (Hidden ability)" : null}
+                                            {ability.description && `: ${ability.description}`}
                                         </li>
                                     )
                                 })
                             }
-                    </ul>
-                    <br />
-                    <h2>Stat Distribution:</h2>
-                    <ul>
-                        <li>HP: {pokemonHP}</li>
-                        <li>Attack: {pokemonAttack}</li>
-                        <li>Defense: {pokemonDefense}</li>
-                        <li>Special Attack: {pokemonSpecialAttack}</li>
-                        <li>Special Defense: {pokemonSpecialDefense}</li>
-                        <li>Speed: {pokemonSpeed}</li>
-                    </ul>
-                    <br />
-                    <h2>Abilities:</h2>
-                    <ol>
-                    {
-                            pokemonAbilities.map((ability) => {
-                                return (
-                                    <li key= {ability.ability.name}>
-                                        {ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1)}
-                                        {ability.is_hidden ? " (Hidden ability)" : null}
-                                        {ability.description && `: ${ability.description}`}
-                                    </li>
-                                )
-                            })
-                        }
-                    </ol><br />
-                    <h2>Moves Learned:</h2>
-                     <div className="movesTableContainer">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Learn Method</th>
-                                    <th>Type</th>
-                                    <th>Power</th>
-                                    <th>Accuracy</th>
-                                    <th>Damage Type</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    pokemonMoves.map((move) => {
-                                        const learnMethod = move.version_group_details[0]?.move_learn_method?.name;
-                                        let displayLearnMethod = "";
-                                        if (learnMethod === "machine") {
-                                            displayLearnMethod = "Machine";
-                                        } else if (learnMethod === "tutor") {
-                                            displayLearnMethod = "Move Tutor";
-                                        } else if (learnMethod === "egg") {
-                                            displayLearnMethod = "Egg Move";
-                                        } else if (learnMethod === "level-up") {
-                                            displayLearnMethod = `Level ${move.version_group_details[0]?.level_learned_at}`;
-                                        } else {
-                                            displayLearnMethod = learnMethod || 'N/A';
-                                        }
+                        </ol><br />
+                        <h2>Moves Learned:</h2>
+                        <div className="movesTableContainer">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Learn Method</th>
+                                        <th>Type</th>
+                                        <th>Power</th>
+                                        <th>Accuracy</th>
+                                        <th>Damage Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        pokemonMoves.map((move) => {
+                                            const learnMethod = move.version_group_details[0]?.move_learn_method?.name;
+                                            let displayLearnMethod = "";
+                                            if (learnMethod === "machine") {
+                                                displayLearnMethod = "Machine";
+                                            } else if (learnMethod === "tutor") {
+                                                displayLearnMethod = "Move Tutor";
+                                            } else if (learnMethod === "egg") {
+                                                displayLearnMethod = "Egg Move";
+                                            } else if (learnMethod === "level-up") {
+                                                displayLearnMethod = `Level ${move.version_group_details[0]?.level_learned_at}`;
+                                            } else {
+                                                displayLearnMethod = learnMethod || 'N/A';
+                                            }
 
-                                        return (
-                                            <tr key={move.move.name}>
-                                                <td>{move.move.name.charAt(0).toUpperCase() + move.move.name.slice(1)}</td>
-                                                <td>{displayLearnMethod}</td>
-                                                <td>{move.type}</td>
-                                                <td>{move.power}</td>
-                                                <td>{move.accuracy}</td>
-                                                <td>{move.damageType.charAt(0).toUpperCase() + move.damageType.slice(1)}</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                                            return (
+                                                <tr key={move.move.name}>
+                                                    <td>{move.move.name.charAt(0).toUpperCase() + move.move.name.slice(1)}</td>
+                                                    <td>{displayLearnMethod}</td>
+                                                    <td>{move.type}</td>
+                                                    <td>{move.power}</td>
+                                                    <td>{move.accuracy}</td>
+                                                    <td>{move.damageType.charAt(0).toUpperCase() + move.damageType.slice(1)}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <br />
                     </div>
-                    <br />
-                </div>
+                ) : isApiCallSuccessful === false && apiCalled === true ? (
+                    <h2 className='notFound'>Pokemon not found, please double check spelling.</h2>
+                ) : (
+                    <p className='initialPrompt'>Enter a Pokemon's name or Pokedex number to get started!</p>
+                )}
             </div>
-        )
-    } else if (isApiCallSuccessful == false && apiCalled == true) {
-        return (
-            <>
-                <Header
-                    pokemonName={pokemonName}
-                    updatePokemonName={updatePokemonName}
-                    searchForPokemon={searchForPokemon}
-                    isLoading={isLoading}
-                />
-                <h2 className='notFound'>Pokemon not found, please double check spelling.</h2>
-            </>
-        )
-    }
-    else {
-        return (
-            <>
-                <Header
-                    pokemonName={pokemonName}
-                    updatePokemonName={updatePokemonName}
-                    searchForPokemon={searchForPokemon}
-                    isLoading={isLoading}
-                />
-            </>
-        )
-    }
+            <Footer />
+        </>
+    )
 }
 
 export default Homepage
