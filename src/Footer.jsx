@@ -1,4 +1,5 @@
 import apiLogo from "./assets/PokeAPI_Logo.png"
+import React from 'react';
 
 function Footer() {
     return(
@@ -13,7 +14,7 @@ function Footer() {
                 </div>
                 <div className="footerColumn">
                     <p className="poweredBy">Powered By</p>
-                    <img src={apiLogo} alt="PokeAPI Logo" className="apiLogo"></img>
+                    <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer"><img src={apiLogo} alt="PokeAPI Logo" className="apiLogo"></img></a>
                 </div>
             </div>
         </>

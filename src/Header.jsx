@@ -1,3 +1,4 @@
+import React from 'react';
 import logo from "./assets/PokemonLogo.png"
 import { useTheme } from "./ThemeContext"
 
